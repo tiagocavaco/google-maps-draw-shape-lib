@@ -1,0 +1,55 @@
+{
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "husky install",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "prettier": {
+    "printWidth": 180,
+    "semi": true,
+    "singleQuote": true,
+    "arrowParens": "always"
+  },
+  "name": "google-maps-draw-shape-lib",
+  "author": "tiagocavaco https://github.com/tiagocavaco",
+  "module": "dist/google-maps-draw-shape-lib.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/google-maps-draw-shape-lib.cjs.production.min.js",
+      "limit": "120 KB"
+    },
+    {
+      "path": "dist/google-maps-draw-shape-lib.esm.js",
+      "limit": "120 KB"
+    }
+  ],
+  "devDependencies": {
+    "@commitlint/cli": "^16.0.2",
+    "@commitlint/config-conventional": "^16.0.0",
+    "@size-limit/preset-small-lib": "^7.0.5",
+    "@size-limit/webpack": "^7.0.5",
+    "@size-limit/webpack-why": "^7.0.5",
+    "husky": "^7.0.4",
+    "size-limit": "^7.0.5",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.1",
+    "typescript": "^3.9.10"
+  },
+  "dependencies": {
+    "jsts": "1.6.2"
+  }
+}
