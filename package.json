@@ -7,7 +7,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "scripts": {
     "start": "tsdx watch",
@@ -28,6 +28,7 @@
     "arrowParens": "always"
   },
   "name": "google-maps-draw-shape-lib",
+  "description": "javascript library that allows drawing a polygon shape over a Google Map and get it's coordinates",
   "author": "tiagocavaco https://github.com/tiagocavaco",
   "repository": "https://github.com/tiagocavaco/google-maps-draw-shape-lib.git",
   "module": "dist/google-maps-draw-shape-lib.esm.js",
