@@ -43,7 +43,6 @@
     }
   ],
   "devDependencies": {
-    "@babel/plugin-transform-modules-commonjs": "^7.16.8",
     "@commitlint/cli": "^16.0.2",
     "@commitlint/config-conventional": "^16.0.0",
     "@commitlint/prompt-cli": "^16.0.0",
