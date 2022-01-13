@@ -1,5 +1,7 @@
 # Google Maps Draw Shape Library
 
+[![npm latest][0]][1] [![ci][2]][3] [![license][4]][5]
+
 `google-maps-draw-shape-lib` is a javascript library written over a small set of the [Google Maps API](https://developers.google.com/maps/), that allows you to draw a polygon shape over a google map and get it's coordinates.
 
 ## Install
@@ -69,4 +71,15 @@ manager.setDrawingMode(drawingMode);
 
 ## Examples
 
-Example of this library being used in React - [google-maps-draw-shape-react](https://github.com/tiagocavaco/google-maps-draw-shape-react)
+Example of this library being used in React: [google-maps-draw-shape-react](https://github.com/tiagocavaco/google-maps-draw-shape-react)
+
+## License
+
+[MIT](./LICENSE.md)
+
+[0]: https://img.shields.io/npm/v/google-maps-draw-shape-lib
+[1]: https://www.npmjs.com/package/google-maps-draw-shape-lib
+[2]: https://github.com/tiagocavaco/google-maps-draw-shape-lib/workflows/CI/badge.svg
+[3]: https://github.com/tiagocavaco/google-maps-draw-shape-lib/actions/workflows/main.yml
+[4]: https://img.shields.io/github/license/tiagocavaco/google-maps-draw-shape-lib
+[5]: https://github.com/tiagocavaco/google-maps-draw-shape-lib/blob/main/LICENSE.md

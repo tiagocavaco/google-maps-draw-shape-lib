@@ -16,7 +16,10 @@
     "lint": "tsdx lint",
     "prepare": "husky install",
     "size": "size-limit",
-    "analyze": "size-limit --why"
+    "analyze": "size-limit --why",
+    "commit": "commit",
+    "release": "standard-version --dry-run",
+    "postrelease": "git push --follow-tags origin main && npm publish"
   },
   "prettier": {
     "printWidth": 180,
@@ -26,6 +29,7 @@
   },
   "name": "google-maps-draw-shape-lib",
   "author": "tiagocavaco https://github.com/tiagocavaco",
+  "repository": "https://github.com/tiagocavaco/google-maps-draw-shape-lib.git",
   "module": "dist/google-maps-draw-shape-lib.esm.js",
   "size-limit": [
     {
@@ -38,18 +42,32 @@
     }
   ],
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.16.8",
     "@commitlint/cli": "^16.0.2",
     "@commitlint/config-conventional": "^16.0.0",
+    "@commitlint/prompt-cli": "^16.0.0",
     "@size-limit/preset-small-lib": "^7.0.5",
     "@size-limit/webpack": "^7.0.5",
     "@size-limit/webpack-why": "^7.0.5",
     "husky": "^7.0.4",
     "size-limit": "^7.0.5",
+    "standard-version": "^9.3.2",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
     "typescript": "^3.9.10"
   },
   "dependencies": {
     "jsts": "1.6.2"
-  }
+  },
+  "keywords": [
+    "google",
+    "map",
+    "maps",
+    "draw",
+    "drawing",
+    "shape",
+    "polygon",
+    "javascript",
+    "react"
+  ]
 }
