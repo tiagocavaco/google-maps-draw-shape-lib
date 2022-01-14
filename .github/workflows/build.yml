@@ -1,5 +1,8 @@
-name: CI
-on: [push]
+name: Reusable build workflow
+
+on:
+  workflow_call:
+
 jobs:
   build:
     name: Build, lint, and test on Node ${{ matrix.node }} and ${{ matrix.os }}

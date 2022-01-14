@@ -1,0 +1,50 @@
+name: ci
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    uses: tiagocavaco/google-maps-draw-shape-lib/.github/workflows/build.yml@${{ github.ref_name }}
+
+  bump:
+    name: Bump version
+    
+    if: |
+      github.ref == 'refs/heads/main' && 
+      (startsWith(github.event.head_commit.message, 'feat') || startsWith(github.event.head_commit.message, 'fix'))
+    
+    needs: build
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GHP_TOKEN }}
+
+      - name: Use Node 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+
+      - name: Install deps and build (with cache)
+        uses: bahmutov/npm-install@v1
+
+      - name: Configure committer
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Standard-version
+        run: yarn release
+
+      - name: Push bumped version files and tag
+        run: git push --follow-tags origin main
+
+
+
+
+
+
