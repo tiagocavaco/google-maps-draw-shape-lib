@@ -6,6 +6,8 @@ on:
 
 jobs:
   build:
+    if: ${{ !startsWith(github.event.head_commit.message, 'chore(release):') }}
+
     uses: tiagocavaco/google-maps-draw-shape-lib/.github/workflows/build.yml@main
 
   bump:
@@ -47,8 +49,32 @@ jobs:
       - name: Push bumped version files and tag
         run: git push --follow-tags origin main
 
+  npm:
+    name: Publish package to npm
 
+    needs: bump
 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use Node 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install deps and build (with cache)
+        uses: bahmutov/npm-install@v1
+
+      - name: Build
+        run: yarn build
+
+      - name: Publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 
 
