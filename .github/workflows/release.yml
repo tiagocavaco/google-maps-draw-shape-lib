@@ -27,3 +27,4 @@ jobs:
           body_path: RELEASE_CHANGELOG.md
           draft: false
           prerelease: false
+          
