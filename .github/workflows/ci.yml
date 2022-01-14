@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    uses: tiagocavaco/google-maps-draw-shape-lib/.github/workflows/build.yml@${{ github.ref_name }}
+    uses: tiagocavaco/google-maps-draw-shape-lib/.github/workflows/build.yml@main
 
   bump:
     name: Bump version
