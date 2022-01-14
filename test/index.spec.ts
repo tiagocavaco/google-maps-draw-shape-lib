@@ -46,15 +46,13 @@ let deletePointInnerHtml;
 let manager;
 
 beforeEach(() => {
-  //Google Maps JavaScript API instance
   map = new (window as any).google.maps.Map();
-  //Callback function that will be called when user create or delete shape
+
   const onDrawCallback = (shape) => console.log(shape);
-  //Flag indicating whether it should set Drawing Mode enabled
+
   const drawingMode = false;
-  //Flag indicating whether it should set Draw Free Hand Mode enabled
   const drawFreeHandMode = false;
-  //Object containing the google polygon options to be used when drawing
+
   polygonOptions = {
     clickable: false,
     fillColor: '#303030',
@@ -63,12 +61,10 @@ beforeEach(() => {
     strokeWeight: 4,
     strokeOpacity: 1
   };
-  //String with the inner HTML of the draw initial point overlay
+
   initialPointInnerHtml = `<button class="your-custom-initial-point-class" title="Initial Point"></button>`;
-  //String with the inner HTML of the draw delete point overlay
   deletePointInnerHtml = `<button class="your-custom-delete-point-class" title="Delete">X</button></div>`;
 
-  //Create Google Maps Draw Shape Library instance
   manager = new MapDrawShapeManager(map, onDrawCallback, drawingMode, drawFreeHandMode, polygonOptions, initialPointInnerHtml, deletePointInnerHtml);
 });
 
@@ -85,7 +81,7 @@ describe('MapDrawShapeManager', () => {
 
   it('Should initialize shape with success', () => {
     expect(manager).toBeDefined();
-    //Example of shape returned on callback function
+
     const initalShape = [
       { lat: 38.71755745031312, lng: -9.34395756832437 },
       { lat: 39.780999209652855, lng: -8.82210698238687 },
@@ -93,7 +89,6 @@ describe('MapDrawShapeManager', () => {
       { lat: 38.71755745031312, lng: -9.34395756832437 }
     ];
 
-    //Draws the input shape on the map
     manager.initDrawnShape(initalShape);
 
     expect(polygonSetMapMock).toHaveBeenCalledTimes(1);
@@ -102,7 +97,7 @@ describe('MapDrawShapeManager', () => {
 
   it('Should clear shape with success', () => {
     expect(manager).toBeDefined();
-    //Example of shape returned on callback function
+
     const initalShape = [
       { lat: 38.71755745031312, lng: -9.34395756832437 },
       { lat: 39.780999209652855, lng: -8.82210698238687 },
@@ -110,10 +105,8 @@ describe('MapDrawShapeManager', () => {
       { lat: 38.71755745031312, lng: -9.34395756832437 }
     ];
 
-    //Draws the input shape on the map
     manager.initDrawnShape(initalShape);
 
-    //Clears the drawn shape
     manager.resetDrawnShape();
 
     expect(polygonSetMapMock).toHaveBeenCalledTimes(2);

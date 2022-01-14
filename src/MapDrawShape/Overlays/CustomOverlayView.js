@@ -1,5 +1,3 @@
-/*global google*/
-
 export default class CustomOverlayView {
   /**
    * @param {string} content String with the inner HTML of the overlay
@@ -11,8 +9,8 @@ export default class CustomOverlayView {
     this.position = position;
     this.callback = callback;
 
-    //Typescript ReferenceError: google is not defined
-    //It is not possible to directly extend a google.maps.* class since it actually isn't available
+    // Typescript ReferenceError: google is not defined
+    // It is not possible to directly extend a google.maps.* class since it actually isn't available
     this.extend(CustomOverlayView, google.maps.OverlayView);
   }
 

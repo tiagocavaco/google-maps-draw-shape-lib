@@ -1,5 +1,3 @@
-/*global google*/
-
 import CustomOverlayView from './Overlays/CustomOverlayView';
 import MapFunctions from './Map/MapHelper';
 import JstsHelper from './Geometry/JstsHelper';

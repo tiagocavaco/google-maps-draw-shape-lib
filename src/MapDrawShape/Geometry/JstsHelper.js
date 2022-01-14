@@ -1,5 +1,3 @@
-/*global google*/
-
 import * as jsts from 'jsts/dist/jsts';
 
 export default class JstsHelper {
@@ -151,7 +149,7 @@ export default class JstsHelper {
   static #convertFromJstsGeometry = (geom) => {
     let polygons = [];
 
-    //Sets shape on clockwise order
+    // Sets shape on clockwise order
     geom.normalize();
 
     if (geom instanceof jsts.geom.Polygon) {

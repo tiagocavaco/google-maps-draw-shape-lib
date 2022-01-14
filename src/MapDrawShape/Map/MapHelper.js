@@ -1,5 +1,3 @@
-/*global google*/
-
 export default class MapFunctions {
   /**
    * @param {google.maps.Map} map Google Maps JavaScript API instance
