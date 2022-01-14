@@ -18,7 +18,10 @@ jobs:
       (
         startsWith(github.event.head_commit.message, 'feat') || 
         startsWith(github.event.head_commit.message, 'fix') ||
-        startsWith(github.event.head_commit.message, 'ci')
+        startsWith(github.event.head_commit.message, 'docs') ||
+        startsWith(github.event.head_commit.message, 'perf') ||
+        startsWith(github.event.head_commit.message, 'build') ||
+        startsWith(github.event.head_commit.message, 'revert')
       )
     
     needs: build
