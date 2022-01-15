@@ -141,7 +141,7 @@ jobs:
           body_path: RELEASE_CHANGELOG.md
           draft: false
           prerelease: false
-          commitish: main
+          commitish: 'refs/heads/main'
           
 
 
