@@ -19,7 +19,7 @@
     "analyze": "size-limit --why",
     "commit": "commit",
     "release": "standard-version",
-    "publish": "npm publish"
+    "package": "npm publish"
   },
   "prettier": {
     "printWidth": 180,
