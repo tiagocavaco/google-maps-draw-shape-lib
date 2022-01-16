@@ -71,7 +71,7 @@ manager.setDrawingMode(drawingMode);
 
 ## Examples
 
-Example of this library being used in React: [google-maps-draw-shape-react](https://github.com/tiagocavaco/google-maps-draw-shape-react)
+Example of this library being used in React: [google-maps-draw-shape-react](https://tiagocavaco.github.io/google-maps-draw-shape-react/) [(source)](https://github.com/tiagocavaco/google-maps-draw-shape-react)
 
 ## License
 
