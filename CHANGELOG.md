@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.12](https://github.com/tiagocavaco/google-maps-draw-shape-lib/compare/v1.0.11...v1.0.12) (2022-01-16)
+
+
+### Documentation
+
+* update readme ([68dbad4](https://github.com/tiagocavaco/google-maps-draw-shape-lib/commit/68dbad406b2de4e9f5b5cec44bd22be38cba5bbe))
+
 ### [1.0.11](https://github.com/tiagocavaco/google-maps-draw-shape-lib/compare/v1.0.10...v1.0.11) (2022-01-16)
 
 
