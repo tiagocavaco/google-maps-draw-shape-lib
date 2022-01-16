@@ -60,7 +60,6 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-          token: ${{ secrets.GHP_TOKEN }}
 
       - name: Use Node 16.x
         uses: actions/setup-node@v1
