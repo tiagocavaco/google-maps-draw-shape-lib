@@ -12,7 +12,16 @@ export default class MapDrawShapeManager {
    * @param {string} initialPointInnerHtml String with the inner HTML of the draw initial point overlay
    * @param {string} deletePointInnerHtml String with the inner HTML of the draw delete point overlay
    */
-  constructor(map, callback, drawingMode, drawFreeHandMode, polygonOptions, initialPointInnerHtml, deletePointInnerHtml) {
+  constructor(
+    map,
+    callback,
+    drawingMode,
+    drawFreeHandMode,
+    polygonOptions,
+    initialPointInnerHtml,
+    deletePointInnerHtml,
+    onPlotCallback
+  ) {
     this.map = map;
 
     this.callback = callback;
@@ -34,7 +43,7 @@ export default class MapDrawShapeManager {
 
     this.drawnShape = null;
     this.deleteDrawnShape = null;
-
+    this.onPlotCallback = onPlotCallback;
     this.setDrawingMode(drawingMode);
   }
 
@@ -50,7 +59,9 @@ export default class MapDrawShapeManager {
         this.drawnShape = [];
 
         polygons.forEach((p) => {
-          this.drawnShape.push(new google.maps.Polygon({ path: p, ...this.polygonOptions }));
+          this.drawnShape.push(
+            new google.maps.Polygon({ path: p, ...this.polygonOptions })
+          );
         });
 
         this.#setDeleteDrawPoint();
@@ -103,7 +114,8 @@ export default class MapDrawShapeManager {
 
           MapFunctions.freezeMap(this.map, false);
 
-          if (this.drawnShape) this.drawnShape.forEach((p) => p.setMap(this.map));
+          if (this.drawnShape)
+            this.drawnShape.forEach((p) => p.setMap(this.map));
           if (this.deleteDrawnShape) this.deleteDrawnShape.show(this.map);
 
           this.#clearDrawFreeHandListeners();
@@ -120,7 +132,8 @@ export default class MapDrawShapeManager {
           this.drawnPolylineDraft = null;
           this.drawnPolygonDraft = null;
 
-          if (this.drawnShape) this.drawnShape.forEach((p) => p.setMap(this.map));
+          if (this.drawnShape)
+            this.drawnShape.forEach((p) => p.setMap(this.map));
           if (this.deleteDrawnShape) this.deleteDrawnShape.show(this.map);
 
           this.#clearDrawListeners();
@@ -130,21 +143,29 @@ export default class MapDrawShapeManager {
   };
 
   #setInitialDrawPoint = (point, callback) => {
-    this.initialDrawPoint = new CustomOverlayView(this.initialPointInnerHtml, point, callback);
+    this.initialDrawPoint = new CustomOverlayView(
+      this.initialPointInnerHtml,
+      point,
+      callback
+    );
 
     this.initialDrawPoint.show(this.map);
   };
 
   #setDeleteDrawPoint = () => {
-    this.deleteDrawnShape = new CustomOverlayView(this.deletePointInnerHtml, this.#getDrawnShapeHighestPoint(), () => {
-      if (this.drawnShape) this.drawnShape.forEach((p) => p.setMap(null));
-      if (this.deleteDrawnShape) this.deleteDrawnShape.remove();
+    this.deleteDrawnShape = new CustomOverlayView(
+      this.deletePointInnerHtml,
+      this.#getDrawnShapeHighestPoint(),
+      () => {
+        if (this.drawnShape) this.drawnShape.forEach((p) => p.setMap(null));
+        if (this.deleteDrawnShape) this.deleteDrawnShape.remove();
 
-      this.drawnShape = null;
-      this.deleteDrawnShape = null;
+        this.drawnShape = null;
+        this.deleteDrawnShape = null;
 
-      this.callback([]);
-    });
+        this.callback([]);
+      }
+    );
 
     if (!this.startedDrawing && !this.startedDrawingFreeHand) {
       this.drawnShape.forEach((p) => p.setMap(this.map));
@@ -184,8 +205,15 @@ export default class MapDrawShapeManager {
   };
 
   #draw = () => {
-    this.drawnPolylineDraft = new google.maps.Polyline({ map: this.map, ...this.polygonOptions });
-    this.drawnPolygonDraft = new google.maps.Polygon({ map: this.map, ...this.polygonOptions, strokeOpacity: 0 });
+    this.drawnPolylineDraft = new google.maps.Polyline({
+      map: this.map,
+      ...this.polygonOptions,
+    });
+    this.drawnPolygonDraft = new google.maps.Polygon({
+      map: this.map,
+      ...this.polygonOptions,
+      strokeOpacity: 0,
+    });
 
     google.maps.event.addDomListener(this.map.getDiv(), 'click', (e) => {
       const latLng = MapFunctions.pointToLatLng(this.map, e);
@@ -208,6 +236,9 @@ export default class MapDrawShapeManager {
       polylinePath.push(latLng);
 
       this.drawnPolygonDraft.setPath(polylinePath);
+      const lat = latLng.lat();
+      const lng = latLng.lng();
+      this.onPlotCallback({ lng, lat });
     });
 
     google.maps.event.addDomListener(this.map.getDiv(), 'mousemove', (e) => {
@@ -215,7 +246,6 @@ export default class MapDrawShapeManager {
 
       if (polylinePath.length > 0) {
         const latLng = MapFunctions.pointToLatLng(this.map, e);
-
         polylinePath.setAt(polylinePath.length - 1, latLng);
       }
     });
@@ -240,7 +270,9 @@ export default class MapDrawShapeManager {
     this.drawnPolylineDraft.setMap(null);
     this.drawnPolygonDraft.setMap(null);
 
-    const polygons = JstsHelper.processPolygon(this.drawnPolygonDraft.getPath().getArray());
+    const polygons = JstsHelper.processPolygon(
+      this.drawnPolygonDraft.getPath().getArray()
+    );
 
     if (polygons.length > 0) {
       this.drawnShape = [];
@@ -248,7 +280,9 @@ export default class MapDrawShapeManager {
       let shape = [];
 
       polygons.forEach((p) => {
-        this.drawnShape.push(new google.maps.Polygon({ path: p, ...this.polygonOptions }));
+        this.drawnShape.push(
+          new google.maps.Polygon({ path: p, ...this.polygonOptions })
+        );
 
         shape = shape.concat(
           p.map((item) => {
@@ -282,7 +316,10 @@ export default class MapDrawShapeManager {
   };
 
   #drawFreeHand = () => {
-    this.drawnPolylineDraft = new google.maps.Polyline({ map: this.map, ...this.polygonOptions });
+    this.drawnPolylineDraft = new google.maps.Polyline({
+      map: this.map,
+      ...this.polygonOptions,
+    });
 
     google.maps.event.addListenerOnce(this.map, 'mousedown', (e) => {
       event.preventDefault(); // eslint-disable-line no-restricted-globals
@@ -316,7 +353,10 @@ export default class MapDrawShapeManager {
 
     this.drawnPolylineDraft.setMap(null);
 
-    const polygons = JstsHelper.processPolygon(this.drawnPolylineDraft.getPath().getArray(), MapFunctions.getZoom(this.map));
+    const polygons = JstsHelper.processPolygon(
+      this.drawnPolylineDraft.getPath().getArray(),
+      MapFunctions.getZoom(this.map)
+    );
 
     if (polygons.length > 0) {
       this.drawnShape = [];
@@ -324,7 +364,9 @@ export default class MapDrawShapeManager {
       let shape = [];
 
       polygons.forEach((p) => {
-        this.drawnShape.push(new google.maps.Polygon({ path: p, ...this.polygonOptions }));
+        this.drawnShape.push(
+          new google.maps.Polygon({ path: p, ...this.polygonOptions })
+        );
 
         shape = shape.concat(
           p.map((item) => {
@@ -336,6 +378,8 @@ export default class MapDrawShapeManager {
       this.#setDeleteDrawPoint();
 
       this.callback(shape);
+
+      this.onPlotCallback(shape);
     } else {
       this.#initDrawFreeHand();
     }
